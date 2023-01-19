@@ -41,7 +41,10 @@ def sim_seq(r, length, fasta, bc1, bc2, bc3, numi, tn, sp1, sp2):
             seq = seq[0:length]
         return(seq)
     else:
-        seq = generate_mapped(length, fasta)
+        if len(fasta) == 0:
+            seq = generate_umi(length)
+        else:
+            seq = generate_mapped(length, fasta)
         return(seq)
 # 3rd line in fastq is just "+"
 line3_template = "+"
@@ -103,7 +106,7 @@ def main():
     parser.add_argument('-f',
                         '--fasta',
                         help ="""
-                        fasta file of target genes mapped
+                        fasta file of target genes mapped, will generate random sequence if empty
                         """,
                         required = True)
     
